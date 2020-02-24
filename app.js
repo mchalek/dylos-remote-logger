@@ -5,7 +5,6 @@ const fs = require('fs');
 
 const readInterface = readline.createInterface({
     input: fs.createReadStream(USB_FILENAME),
-    output: process.stdout,
     console: false
 });
 
