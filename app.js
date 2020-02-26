@@ -2,15 +2,15 @@ const USB_FILENAME = '/dev/ttyUSB0';
 
 const readline = require('readline');
 const fs = require('fs');
-const {BigQuery} = require('@google-cloud/biquery');
+const {BigQuery} = require('@google-cloud/bigquery');
 
 const readInterface = readline.createInterface({
     input: fs.createReadStream(USB_FILENAME),
     console: false
 });
 
-const DATASET_ID = 'my_dataset';
-const TABLE_ID = 'my_table';
+const DATASET_ID = '415k';
+const TABLE_ID = 'dylos';
 
 async function insertRowsAsStream(rows) {
   // Inserts the JSON objects into my_dataset:my_table.
