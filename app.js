@@ -17,22 +17,26 @@ async function insertRowsAsStream(rows) {
 
   // Create a client
   const bigqueryClient = new BigQuery();
+  console.log(`Inserting ${rows.length} rows into ${DATASET_ID}:${TABLE_ID}`);
 
   // Insert data into a table
   await bigqueryClient
     .dataset(DATASET_ID)
     .table(TABLE_ID)
-    .insert(rows);
+    .insert(rows)
+    .catch(function(err) {
+        console.log(`Caught error: ${JSON.stringify(err)}`);
+    })
   console.log(`Inserted ${rows.length} rows`);
 }
 
 function buildRow(line) {
     const [count_05_str, count_25_str] = line.trim().split(',');
 
-    const timestamp = Date.now();
+    //const timestamp_micros = Date.now() * 1000;
 
     return {
-        'timestamp': timestamp,
+        'timestamp': BigQuery.timestamp(Date.now()),
         'count_05': Number(count_05_str),
         'count_25': Number(count_25_str),
     }
